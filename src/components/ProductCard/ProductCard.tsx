@@ -1,36 +1,48 @@
+import { Card, CardMedia, Stack } from "@mui/material";
 import {
-  Button,
-  Card,
-  CardContent,
-  CardMedia,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { ShoppingCart } from "@mui/icons-material";
+  ProductCardContent,
+  ProductCardContentProps,
+} from "./ProductCardContent/ProductCardContent";
 
-export const ProductCard = () => {
+export type ProductCardProps = ProductCardContentProps & {
+  image?: string;
+};
+
+const mockProduct: ProductCardProps = {
+  productType: "Perfume",
+  productName: "Gabrielle Essence Eau de Parfum",
+  productDescription:
+    "A floral, solar and voluptuous interpretation composed by Olivier Polge, Perfumer/Creator for" +
+    " the House of Chanel.",
+  productPrice: "$149.99",
+  productOldPrice: "$169.99",
+  image:
+    "https://images.unsplash.com/photo-1589820933525-dadd23d13c56?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Z2FicmllbGxlJTIwcGFyZnVtfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60",
+};
+
+export const ProductCard = ({
+  productType = mockProduct.productType,
+  productName = mockProduct.productName,
+  productDescription = mockProduct.productDescription,
+  productPrice = mockProduct.productPrice,
+  productOldPrice = mockProduct.productOldPrice,
+  image = mockProduct.image,
+}: ProductCardProps) => {
   return (
-    <Card sx={{ minWidth: 345 }}>
+    <Card sx={{ minWidth: 345, maxWidth: 600 }}>
       <Stack direction="row">
         <CardMedia
           component="img"
-          sx={{ maxWidth: "50%", backgroundSize: "cover" }}
-          image="https://www.randomkittengenerator.com/cats/85835.2.jpg"
+          sx={{ width: "50%", backgroundSize: "cover" }}
+          image={image}
         />
-        <CardContent sx={{ textAlign: "left" }}>
-          <Typography>ITEM TYPE</Typography>
-
-          <Typography variant={"h3"}>Item Name</Typography>
-          <Typography>Item Description</Typography>
-          <Stack direction="row">
-            <Typography>Item New Price</Typography>
-            <Typography>Item Old Price</Typography>
-          </Stack>
-          <Button variant="contained" disableElevation>
-            <ShoppingCart color="secondary" />
-            Add to Cart
-          </Button>
-        </CardContent>
+        <ProductCardContent
+          productType={productType}
+          productName={productName}
+          productDescription={productDescription}
+          productPrice={productPrice}
+          productOldPrice={productOldPrice}
+        />
       </Stack>
     </Card>
   );
